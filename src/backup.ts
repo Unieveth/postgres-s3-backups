@@ -53,7 +53,7 @@ export const backup = async () => {
   console.log('Initiating DB backup...')
 
   const date = new Date()
-  const fileName = 'vdc-db-backup' + '-' + date.toUTCString().replace(/[\s:,]/g, '-') + '.tar.gz'
+  const fileName = env.NAME_PREFIX + '-' + date.toUTCString().replace(/[\s:,]/g, '-') + '.tar.gz'
   const filepath = `/tmp/${fileName}`
 
   await dumpToFile(filepath)
