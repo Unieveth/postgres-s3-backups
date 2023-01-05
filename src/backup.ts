@@ -1,5 +1,5 @@
 import { exec } from 'child_process'
-import Minio from 'minio'
+const Minio = require('minio')
 
 import { env } from './env'
 
