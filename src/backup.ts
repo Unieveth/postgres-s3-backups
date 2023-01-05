@@ -9,11 +9,11 @@ const uploadToS3 = async ({ name, path }: { name: string; path: string }) => {
   const bucket = env.BUCKET
 
   const client = new Minio.Client({
-    endPoint: process.env.ENDPOINT || '',
+    endPoint: env.ENDPOINT,
     port: 9000,
     useSSL: false,
-    accessKey: process.env.ACCESS_KEY || '',
-    secretKey: process.env.SECRET_KEY || '',
+    accessKey: env.ACCESS_KEY,
+    secretKey: env.SECRET_KEY,
   })
 
   await client.fPutObject(bucket, name, path)
@@ -53,7 +53,7 @@ export const backup = async () => {
   console.log('Initiating DB backup...')
 
   const date = new Date()
-  const fileName = env.NAME_PREFIX + date.toUTCString() + '.tar.gz'
+  const fileName = 'vdc-db-backup' + '-' + date.toUTCString().replace(/[\s:,]/g, '-') + '.tar.gz'
   const filepath = `/tmp/${fileName}`
 
   await dumpToFile(filepath)
